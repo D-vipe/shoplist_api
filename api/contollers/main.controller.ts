@@ -14,7 +14,7 @@ class MainController {
 
   public intializeRoutes() {
     // this.router.post(this.path, this.list);
-    this.router.put(this.path, this.addList);
+    this.router.put(this.path, this.create);
   }
 
 //   list = (request: express.Request, response: express.Response) => {
@@ -23,7 +23,7 @@ class MainController {
     // response.send(post);
 //   };
 
-  addList = (req: express.Request, res: express.Response) => {
+  private create = async (req: express.Request, res: express.Response) => {
     const postList: List = req.body.data;
     const createdList = new this.model(postList);
     createdList.save()
