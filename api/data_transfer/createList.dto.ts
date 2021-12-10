@@ -1,6 +1,6 @@
 import { IsString } from 'class-validator';
 
-class ListDto {
+class CreateListDto {
   @IsString()
   public name: string;
 
@@ -9,4 +9,4 @@ class ListDto {
 
 }
 
-export default ListDto;
+export default CreateListDto;

@@ -4,7 +4,6 @@ import userModel from '../models/user.model';
 import HttpException from '../exceptions/HttpException';
 import WrongCredentialsException from '../exceptions/WrongCredentialsException';
 import jwt from "jsonwebtoken";
-// import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import validationMiddleware from '../middleware/validation.middleware';
 import authMiddleware from '../middleware/auth.middleware';
@@ -103,7 +102,7 @@ class UserController {
   };
 
   private createToken(user: User): TokenData {
-    const expiresIn = 60 * 60; // an hour
+    const expiresIn = 60 * 60 * 12; // 12 hours
     const secret = process.env.JWT_SECRET;
     const dataStoredInToken: DataStoredInToken = {
       _id: user._id,
@@ -115,7 +114,7 @@ class UserController {
   }
 
   private createCookie(tokenData: TokenData) {
-    return `Authorization=${tokenData.token}; HttpOnly; Max-Age=${tokenData.expiresIn}`;
+    return `Authorization=${tokenData.token}; path=/; HttpOnly; Max-Age=${tokenData.expiresIn}`;
   }
 
   private loggingOut = async (request: express.Request, response: express.Response) => {

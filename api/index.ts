@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import App from './app';
-import MainController from './contollers/main.controller';
+import ItemController from './contollers/item.controller';
+import ListController from './contollers/list.controller';
 import UserController from './contollers/user.controller';
 import validateEnv from './utils/validateEnv';
 
@@ -8,7 +9,8 @@ validateEnv();
 
 const app = new App(
   [
-    new MainController(),
+    new ListController(),
+    new ItemController(),
     new UserController(),
   ],
   process.env.PORT,
