@@ -1,8 +1,13 @@
 import express from 'express';
+import path from "path";
 import * as bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import mongoose from 'mongoose';
+import swaggerJSDoc from 'swagger-jsdoc';
+import swaggerUi from 'swagger-ui-express';
 import errorMiddleware from './middleware/error.middleware';
+
+
 class App {
   public app: express.Application;
   public port: number;
@@ -14,6 +19,7 @@ class App {
     this.connectToTheDatabase();
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
+    this.initializeSwagger();
     this.initializeErrorHandling();
   }
 
@@ -26,6 +32,40 @@ class App {
     controllers.forEach((controller) => {
       this.app.use('/api', controller.router);
     });
+
+  }
+
+  private initializeSwagger() {
+    const swaggerDefinition = {
+      openapi: '3.0.0',
+      info: {
+        title: 'Robot_Dreams Admin Panel Api',
+        version: '1.0.0',
+        description:
+          'This is a REST API application made with Express. For Robot_Dreams Task',
+        license: {
+          name: 'Licensed Under MIT',
+          url: 'https://spdx.org/licenses/MIT.html',
+        },
+        contact: {
+          name: 'D-vipe',
+        },
+      },
+      servers: [
+        {
+          url: 'http://localhost:3000',
+          description: 'Development server',
+        },
+      ],
+    };
+    const options = {
+      swaggerDefinition,
+      // Paths to files containing OpenAPI definitions
+      apis: [path.join(__dirname, '/swagger/*.js')],
+    };
+    const swaggerSpec = swaggerJSDoc(options);
+
+    this.app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   }
 
   private connectToTheDatabase() {
