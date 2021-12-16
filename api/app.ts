@@ -6,6 +6,8 @@ import mongoose from 'mongoose';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import errorMiddleware from './middleware/error.middleware';
+import expressPinoLogger from "express-pino-logger";
+import logger from './middleware/logger.middleware';
 
 
 class App {
@@ -17,6 +19,7 @@ class App {
     this.port = port;
 
     this.connectToTheDatabase();
+    this.initializeLogging();
     this.initializeMiddlewares();
     this.initializeControllers(controllers);
     this.initializeSwagger();
@@ -80,6 +83,17 @@ class App {
     connection.once('open', () => {
       console.log("DB connected.");
     });
+  }
+
+  private initializeLogging() {
+    console.log('innit logger here');
+    const eplMiddleware = expressPinoLogger({
+      // specify the logger
+      logger: logger,
+      // level to log
+      useLevel: "info"
+    });
+    this.app.use(eplMiddleware);
   }
 
   private initializeErrorHandling() {

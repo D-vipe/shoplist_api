@@ -1,8 +1,8 @@
 import HttpException from "./HttpException";
 
 class NotFoundException extends HttpException {
-  constructor() {
-    super(404, 'Не удалось найти то, что вы искали');
+  constructor(msg: string) {
+    super(404, msg ?? 'Не удалось найти то, что вы искали');
   }
 }
 

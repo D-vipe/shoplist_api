@@ -13,6 +13,7 @@ import UserLoginDto from '../data_transfer/userLogin.dto';
 import TokenData from '../interfaces/token.interface';
 import DataStoredInToken from '../interfaces/tokenId.interface';
 import RequestWithUser from '../interfaces/requestWithUser.interface';
+import NotFoundException from '../exceptions/NotFoundException';
 
 class UserController {
   public path = '/users';
@@ -54,6 +55,7 @@ class UserController {
   };
 
   private login = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    // logger.info('request to login route');
     const logInData: UserLoginDto = req.body.data;
     const user = await this.model.findOne({ email: logInData.email });
     if (user) {
@@ -66,6 +68,8 @@ class UserController {
       } else {
         next(new WrongCredentialsException());
       }
+    } else {
+      next(new NotFoundException('Не удалось найти пользователя с таким email'));
     }
   };
 
