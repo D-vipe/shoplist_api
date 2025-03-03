@@ -11,7 +11,7 @@ import HttpException from '../exceptions/HttpException';
 import GetItemsByIdDto from '../data_transfer/getItemsById.dto';
 import GetItemsByListIdDto from '../data_transfer/getItemsByListId.dto';
 import listModel from '../models/list.model';
-import DelItemDto from 'api/data_transfer/delItem.dto';
+import DelItemDto from 'lib/data_transfer/delItem.dto';
 
 class ItemController {
   public path = '/item';

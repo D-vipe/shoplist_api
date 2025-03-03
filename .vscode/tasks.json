@@ -1,0 +1,15 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "npm: lint",
+        "type": "npm",
+        "script": "lint",
+        "problemMatcher": [
+          "$eslint-stylish"
+        ],
+        "group": "build",
+        "detail": "Run ESLint to lint the project"
+      }
+    ]
+  }

@@ -12,7 +12,7 @@ class App {
   public app: express.Application;
   public port: number;
 
-  constructor(controllers, port) {
+  constructor(controllers,  port) {
     this.app = express();
     this.port = port;
 
@@ -39,10 +39,10 @@ class App {
     const swaggerDefinition = {
       openapi: '3.0.0',
       info: {
-        title: 'Robot_Dreams Admin Panel Api',
+        title: 'MAFIA Admin Panel API',
         version: '1.0.0',
         description:
-          'This is a REST API application made with Express. For Robot_Dreams Task',
+          'REST API for MAFIA Admin Panel',
         license: {
           name: 'Licensed Under MIT',
           url: 'https://spdx.org/licenses/MIT.html',
@@ -53,7 +53,7 @@ class App {
       },
       servers: [
         {
-          url: 'http://localhost:3000',
+          url: `http://localhost:${process.env.PORT ?? 3000}`,
           description: 'Development server',
         },
       ],

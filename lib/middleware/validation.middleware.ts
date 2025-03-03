@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { plainToClass } from 'class-transformer';
+import { plainToClass, plainToInstance } from 'class-transformer';
 import { validate, ValidationError } from 'class-validator';
 import * as express from 'express';
 import HttpException from '../exceptions/HttpException';
 
 function validationMiddleware<T>(type: any, skipMissingProperties = false): express.RequestHandler {
-  return (req, res, next) => {
-    validate(plainToClass(type, req.body.data), { skipMissingProperties })
+  return (req, _, next) => {
+    validate(plainToInstance(type, req.body.data), { skipMissingProperties })
       .then((errors: ValidationError[]) => {
         if (errors.length > 0) {
           const message = errors.map((error: ValidationError) => Object.values(error.constraints)).join(', ');
