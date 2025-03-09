@@ -1,6 +1,9 @@
-enum Phase {
-    Day = 'DAY',
-    Night = 'Night',
+enum Phases {
+    SETUP = 'SETUP',
+    DAY = 'DAY',
+    NIGHT = 'NIGHT',
+    VOTING = 'VOTING',
+    GAMEOVER = 'GAMEOVER',
 }
 
-export default Phase;
+export default Phases;

@@ -1,15 +1,15 @@
 import * as express from 'express';
-import CreateListDto from '../data_transfer/createList.dto';
-import UpdateListDto from '../data_transfer/updateList.dto';
+import CreateListDto from '../data_transfer-OLD/createList.dto';
+import UpdateListDto from '../data_transfer-OLD/updateList.dto';
 import authMiddleware from '../middleware/auth.middleware';
 import mongoose from "mongoose";
 import validationMiddleware from '../middleware/validation.middleware';
 import listModel from '../models/list.model';
-import RequestWithUser from '../interfaces/requestWithUser.interface';
-import WrongCredentialsException from '../exceptions/WrongCredentialsException';
-import NotFoundException from '../exceptions/NotFoundException';
-import HttpException from '../exceptions/HttpException';
-import GetListByIdDto from '../data_transfer/getListById.dto';
+import RequestWithUser from '../interfaces-OLD/requestWithUser.interface';
+import WrongCredentialsException from '../common/exceptions/WrongCredentialsException';
+import NotFoundException from '../common/exceptions/NotFoundException';
+import HttpException from '../common/exceptions/HttpException';
+import GetListByIdDto from '../data_transfer-OLD/getListById.dto';
 import itemModel from '../models/item.model';
 
 class ListController {

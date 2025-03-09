@@ -3,7 +3,7 @@
 import { plainToClass, plainToInstance } from 'class-transformer';
 import { validate, ValidationError } from 'class-validator';
 import * as express from 'express';
-import HttpException from '../exceptions/HttpException';
+import HttpException from '../common/exceptions/HttpException';
 
 function validationMiddleware<T>(type: any, skipMissingProperties = false): express.RequestHandler {
   return (req, _, next) => {

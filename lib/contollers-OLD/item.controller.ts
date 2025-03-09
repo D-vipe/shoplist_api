@@ -1,17 +1,17 @@
 import * as express from 'express';
-import CreateItemDto from '../data_transfer/createItem.dto';
-import UpdateItemDto from '../data_transfer/updateItem.dto';
+import CreateItemDto from '../data_transfer-OLD/createItem.dto';
+import UpdateItemDto from '../data_transfer-OLD/updateItem.dto';
 import authMiddleware from '../middleware/auth.middleware';
 import mongoose from "mongoose";
 import validationMiddleware from '../middleware/validation.middleware';
 import itemModel from '../models/item.model';
-import WrongCredentialsException from '../exceptions/WrongCredentialsException';
-import NotFoundException from '../exceptions/NotFoundException';
-import HttpException from '../exceptions/HttpException';
-import GetItemsByIdDto from '../data_transfer/getItemsById.dto';
-import GetItemsByListIdDto from '../data_transfer/getItemsByListId.dto';
+import WrongCredentialsException from '../common/exceptions/WrongCredentialsException';
+import NotFoundException from '../common/exceptions/NotFoundException';
+import HttpException from '../common/exceptions/HttpException';
+import GetItemsByIdDto from '../data_transfer-OLD/getItemsById.dto';
+import GetItemsByListIdDto from '../data_transfer-OLD/getItemsByListId.dto';
 import listModel from '../models/list.model';
-import DelItemDto from 'lib/data_transfer/delItem.dto';
+import DelItemDto from 'lib/data_transfer-OLD/delItem.dto';
 
 class ItemController {
   public path = '/item';

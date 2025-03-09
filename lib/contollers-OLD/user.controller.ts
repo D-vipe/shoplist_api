@@ -1,18 +1,18 @@
 import * as express from 'express';
-import User from '../interfaces/user.interface';
+import User from '../interfaces-OLD/user.interface';
 import userModel from '../models/user.model';
-import HttpException from '../exceptions/HttpException';
-import WrongCredentialsException from '../exceptions/WrongCredentialsException';
+import HttpException from '../common/exceptions/HttpException';
+import WrongCredentialsException from '../common/exceptions/WrongCredentialsException';
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import validationMiddleware from '../middleware/validation.middleware';
 import authMiddleware from '../middleware/auth.middleware';
-import UserDto from '../data_transfer/user.dto';
-import UserIdDto from '../data_transfer/userId.dto';
-import UserLoginDto from '../data_transfer/userLogin.dto';
-import TokenData from '../interfaces/token.interface';
-import DataStoredInToken from '../interfaces/tokenId.interface';
-import RequestWithUser from '../interfaces/requestWithUser.interface';
+import UserDto from '../data_transfer-OLD/user.dto';
+import UserIdDto from '../data_transfer-OLD/userId.dto';
+import UserLoginDto from '../data_transfer-OLD/userLogin.dto';
+import TokenData from '../interfaces-OLD/token.interface';
+import DataStoredInToken from '../interfaces-OLD/tokenId.interface';
+import RequestWithUser from '../interfaces-OLD/requestWithUser.interface';
 
 class UserController {
   public path = '/users';

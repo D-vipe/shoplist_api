@@ -1,10 +1,10 @@
 enum Roles {
-    Mafia = 'Мафиози',
-    MafiaBoss = 'Дон мафии',
-    Townsperson = 'Мирный житель',
-    Mistress = 'Любовница',
-    Sheriff = 'Шериф',
-    Doctor = 'Доктор',
+    MAFIA = 'Мафиози',
+    MAFIABOSS = 'Дон мафии',
+    TOWNSPERSON = 'Мирный житель',
+    MISTRESS = 'Любовница',
+    SHERIFF = 'Шериф',
+    DOCTOR = 'Доктор',
 }
 
 export default Roles;

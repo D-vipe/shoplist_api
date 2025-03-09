@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import List from '../interfaces/list.interface';
+import List from '../interfaces-OLD/list.interface';
 
 const listSchema = new mongoose.Schema({
     name: {type: String, required: true},

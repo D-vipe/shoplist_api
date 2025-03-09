@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import Item from '../interfaces/item.interface';
+import Item from '../interfaces-OLD/item.interface';
 
 const itemSchema = new mongoose.Schema({
   name: {type: String, required: true},
