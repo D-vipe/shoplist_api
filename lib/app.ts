@@ -2,17 +2,17 @@ import express from 'express';
 import path from "path";
 import * as bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
-import mongoose from 'mongoose';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import errorMiddleware from './middleware/error.middleware';
+import MongooseConnection from './common/database/mongoose-connection';
 
 
 class App {
   public app: express.Application;
   public port: number;
 
-  constructor(controllers,  port) {
+  constructor(controllers, port) {
     this.app = express();
     this.port = port;
 
@@ -69,17 +69,8 @@ class App {
   }
 
   private connectToTheDatabase() {
-    const {
-      MONGO_USER,
-      MONGO_PASSWORD,
-      MONGO_PATH,
-    } = process.env;
-
-    mongoose.connect(`mongodb://${MONGO_USER}:${MONGO_PASSWORD}${MONGO_PATH}`);
-    const connection = mongoose.connection;
-    connection.once('open', () => {
-      console.log("DB connected.");
-    });
+    const mongooseConnection = MongooseConnection.getInstance();
+    mongooseConnection.connect();
   }
 
   private initializeErrorHandling() {

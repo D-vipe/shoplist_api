@@ -7,6 +7,8 @@ import RequestWithUser from '../interfaces-OLD/requestWithUser.interface';
 import userModel from '../models/user.model';
 import mongoose from "mongoose";
 import WrongCredentialsException from '../common/exceptions/WrongCredentialsException';
+import { log } from 'winston';
+import logger from 'lib/logger';
 
 async function authMiddleware(request: RequestWithUser, response: Response, next: NextFunction) {
   const cookies = request.cookies;
@@ -24,13 +26,16 @@ async function authMiddleware(request: RequestWithUser, response: Response, next
           request.user = user;
           next();
         } else {
+          logger.error('AuthMiddleware error: Wrong token');
           next(new WrongAuthenticationTokenException());
         }
       }
     } catch (error) {
+      logger.error('AuthMiddleware error', { error });
       next(new WrongAuthenticationTokenException());
     }
   } else {
+    logger.error('AuthMiddleware error: Missing token');
     next(new AuthenticationTokenMissingException());
   }
 }

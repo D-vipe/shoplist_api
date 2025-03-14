@@ -1,17 +1,17 @@
 import 'dotenv/config';
 import App from './app';
-// import ItemController from './contollers/item.controller';
-// import ListController from './contollers/list.controller';
-// import UserController from './contollers/user.controller';
 import validateEnv from './utils/validateEnv';
+import UserController from './features/user/interface-adapters/controllers/user.controller';
 
 validateEnv();
 
 const app = new App(
   [
+    new UserController(),
+    // new GameCo
     // new ListController(),
     // new ItemController(),
-    // new UserController(),
+
   ],
   process.env.PORT,
 );
