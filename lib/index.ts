@@ -8,12 +8,10 @@ validateEnv();
 const app = new App(
   [
     new UserController(),
-    // new GameCo
-    // new ListController(),
-    // new ItemController(),
-
   ],
   process.env.PORT,
 );
 
 app.listen();
+
+export default app;

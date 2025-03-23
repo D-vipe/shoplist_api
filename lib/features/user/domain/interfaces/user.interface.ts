@@ -6,6 +6,10 @@ interface User {
   email: string | null;
   phone: string;
   password: string;
+  isAdmin: boolean;
+  teamId: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export default User;

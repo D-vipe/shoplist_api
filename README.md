@@ -12,3 +12,8 @@
 
 # start server and watching changes
 1. run `npx ts-node-dev --respawn --transpile-only api/index.ts`
+
+## connection example
+```
+mongosh mongodb://mafia_admin:gogo123@127.0.0.1:27017/mafia_db
+```

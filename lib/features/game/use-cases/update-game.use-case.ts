@@ -1,19 +1,20 @@
-import Game from "../core/entities/game.class";
-import Player from "../core/entities/player.class";
+// import Game from "../core/entities/game.class";
+// import Player from "../core/entities/player.class";
+// import Phases from "../core/enums/phases";
 
-function updateGameUseCase({ game, players, }: { game: Game, players: Array<Player> }): Game {
+// function updateGameUseCase({ game, players, }: { game: Game, players: Array<Player> }): Game {
 
-    if (expelledPlayerId && !isTie) {
-      updatedPlayers  = game.players.map(player => {
-        if (player._id === expelledPlayerId) {
-          return player.update({ alive: false });
-        }
-        return player;
-      });
-    }
+//     if (expelledPlayerId && !isTie) {
+//       updatedPlayers  = game.players.map(player => {
+//         if (player._id === expelledPlayerId) {
+//           return player.update({ alive: false });
+//         }
+//         return player;
+//       });
+//     }
 
 
-    return game.update({ players: updatedPlayers, votes: [], phase: Phases.DAY });
-  }
+//     return game.update({ players: updatedPlayers, votes: [], phase: Phases.DAY });
+//   }
 
-  export default updateGameUseCase;
+//   export default updateGameUseCase;

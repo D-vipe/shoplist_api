@@ -1,7 +1,7 @@
 import bcrypt from 'bcrypt';
 import UserRepository from '../../infrastructure/repositories/user.repository';
 import User from '../../domain/interfaces/user.interface';
-import HttpException from 'lib/common/exceptions/HttpException';
+import HttpException from '../../../../common/exceptions/http-exception';
 
 
 class CreateUserUseCase {
@@ -11,7 +11,7 @@ class CreateUserUseCase {
     // Check if the user already exists
     const existingUser = await this.userRepository.findUserByPhone(userData.phone);
     if (existingUser) {
-      throw new HttpException(400, 'Email already in use');
+      throw new HttpException(400, 'Пользователь с таким номером телефона уже существует');
     }
 
     // Hash the password
@@ -21,7 +21,6 @@ class CreateUserUseCase {
 
     // Create the user
     const newUser = await this.userRepository.createUser(userData);
-    newUser.password = undefined; // Remove the password from the response
 
     return newUser;
   }

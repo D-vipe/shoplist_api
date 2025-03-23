@@ -2,9 +2,14 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "outDir": "dist",
-    "baseUrl": ".",
+    "baseUrl": "./",
+    "paths": {
+      "lib/*": ["lib/*"]
+    },
     "sourceMap": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "target": "ES6", // Set the target to ES6 or higher
+    "module": "commonjs" // Ensure the module system is compatible with Node.js
   }
 }

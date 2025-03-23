@@ -1,4 +1,5 @@
-import Game from "./game.class";
+import Game from "../entities/game.class";
+
 
 interface GameStoreItem {
     id: string;

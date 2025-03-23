@@ -1,4 +1,4 @@
-import NotFoundException from "lib/common/exceptions/NotFoundException";
+import NotFoundException from "../../../../common/exceptions/not-found.exception";
 import User from "../../domain/interfaces/user.interface";
 import UserRepository from "../../infrastructure/repositories/user.repository";
 

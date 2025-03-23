@@ -8,6 +8,10 @@ const userSchema = new mongoose.Schema({
     email: {type: String, default: null},
     phone: {type: String, required: true, unique: true},
     password: {type: String, required: true},
+    isAdmin: {type: Boolean, default: false},
+    teamId: {type: String, default: ''},
+    createdAt: {type: Date, default: Date.now},
+    updatedAt: {type: Date, default: Date.now},
 });
 
 const userModel = mongoose.model<User & mongoose.Document>('User', userSchema);

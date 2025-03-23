@@ -1,16 +1,21 @@
 import express from 'express';
+import http from 'http';
 import path from "path";
 import * as bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import errorMiddleware from './middleware/error.middleware';
+import errorMiddleware from './common/middleware/error.middleware';
 import MongooseConnection from './common/database/mongoose-connection';
+import SocketService from './frameworks-drivers/socket-service';
+import { DefaultEventsMap, Server } from 'socket.io';
 
 
 class App {
   public app: express.Application;
   public port: number;
+  private server: http.Server;
+  private SocketService: SocketService | null;
 
   constructor(controllers, port) {
     this.app = express();
@@ -21,6 +26,7 @@ class App {
     this.initializeControllers(controllers);
     this.initializeSwagger();
     this.initializeErrorHandling();
+    this.initSocketService();
   }
 
   private initializeMiddlewares() {
@@ -75,6 +81,19 @@ class App {
 
   private initializeErrorHandling() {
     this.app.use(errorMiddleware);
+  }
+
+  private initSocketService() {
+    this.SocketService = new SocketService(this.server);
+  }
+
+  public get getIO(): Server<DefaultEventsMap, DefaultEventsMap> {
+    if (this.SocketService != null) {
+      return this.SocketService.getIO;
+    } else {
+      this.initSocketService();
+      return this.SocketService.getIO;
+    }
   }
 
   public listen() {

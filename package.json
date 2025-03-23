@@ -1,5 +1,5 @@
 {
-  "name": "shoplist_api",
+  "name": "mafia_server",
   "version": "1.0.0",
   "main": "dist/index.js",
   "author": "Alexander <d-vipe@yandex.ru>",
@@ -9,7 +9,7 @@
     "prebuild": "npm run lint",
     "lint:fix": "eslint --cache --ext .ts . --fix",
     "lint": "eslint --cache --ext .ts .",
-    "server:watch": "ts-node-dev --respawn --transpile-only api/index.ts"
+    "server:watch": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register lib/index.ts"
   },
   "dependencies": {
     "@types/express": "^4.17.13",
@@ -37,6 +37,7 @@
     "socket.io": "^4.8.1",
     "swagger-jsdoc": "^6.1.0",
     "swagger-ui-express": "^4.1.6",
+    "tsconfig-paths": "^4.2.0",
     "uuid": "^8.3.2",
     "winston": "^3.17.0"
   },

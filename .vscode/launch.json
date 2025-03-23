@@ -5,7 +5,7 @@
         "type": "node",
         "request": "launch",
         "name": "Launch Server (ts-node-dev)",
-        "program": "${workspaceFolder}/api/index.ts",
+        "program": "${workspaceFolder}/lib/index.ts",
         "cwd": "${workspaceFolder}",
         "console": "integratedTerminal",
         "runtimeExecutable": "npm",

@@ -1,4 +1,5 @@
-import logger from 'lib/logger';
+
+import logger from '../../logger';
 import mongoose from 'mongoose';
 
 

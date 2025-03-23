@@ -1,9 +1,9 @@
-import NotFoundException from "lib/common/exceptions/NotFoundException";
+import NotFoundException from "../../../../common/exceptions/not-found.exception";
 import User from "../../domain/interfaces/user.interface";
 import UserRepository from "../../infrastructure/repositories/user.repository";
 import UserLoginDto from "../dto/user-login.dto";
 import bcrypt from "bcrypt";
-import WrongCredentialsException from "lib/common/exceptions/WrongCredentialsException";
+import WrongCredentialsException from "lib/common/exceptions/wrong-credentials.exception";
 
 class LoginUserUseCase {
     constructor(private userRepository: UserRepository) { }
