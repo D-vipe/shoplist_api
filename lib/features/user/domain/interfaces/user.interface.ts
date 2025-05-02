@@ -5,7 +5,7 @@ interface User {
   nickname: string;
   email: string | null;
   phone: string;
-  password: string;
+  password: string | null;
   isAdmin: boolean;
   teamId: string;
   createdAt: Date;

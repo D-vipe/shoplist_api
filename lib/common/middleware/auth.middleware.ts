@@ -1,7 +1,6 @@
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import AuthenticationTokenMissingException from '../exceptions/authentication-token-missing.exception';
-import logger from 'lib/logger';
 import userModel from 'lib/features/user/infrastructure/models/user.model';
 import RequestWithUser from '../interfaces/request-with-user.interface';
 import ExpiredTokenException from '../exceptions/expired-token.exception';
@@ -11,12 +10,12 @@ import DataStoredInToken from 'lib/features/user/domain/interfaces/tokenId.inter
 // Adjust the path to your User model
 
 const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
-    try {
-        let errorMessage: string = '';
+
+    let errorMessage: string = '';
         // Get the token from the Authorization header
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            logger.error('AuthMiddleware error: Missing token');
+            // logger.error('AuthMiddleware error: Missing token');
             return AuthenticationTokenMissingException;
         }
 
@@ -27,8 +26,8 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
         if (!secretKey) {
             errorMessage = 'JWT_SECRET is not defined in environment variables';
 
-            logger.error(errorMessage);
-            throw new Error(errorMessage);
+            // logger.error(errorMessage);
+            throw new HttpException(500, errorMessage);
         }
 
         const decodedToken = jwt.verify(token, secretKey) as DataStoredInToken;
@@ -43,13 +42,9 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
         // }
 
         // Check if the user ID exists in the database
-        const user = await userModel.findById(decodedToken._id);
+        const user = await userModel.findById(decodedToken.id);
         if (!user) {
-            const exception: WrongCredentialsException = new WrongCredentialsException();
-
-            logger.error(exception.message);
-
-            throw exception;
+            throw new WrongCredentialsException();
         }
 
         // Attach the user to the request object for further use
@@ -57,15 +52,17 @@ const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFun
 
         // Proceed to the next middleware or route handler
         next();
-    } catch (error) {
-        console.error('Error in gameAuthMiddleware:', error);
+    // try {
 
-        if (error instanceof HttpException) {
-            res.status(error.status).json({ message: error.message });
-        } else {
-            res.status(400).json({ message: 'Authentication failed', error: error.message });
-        }
-    }
+    // } catch (error) {
+    //     // console.error('Error in gameAuthMiddleware:', error);
+
+    //     if (error instanceof HttpException) {
+    //         res.status(error.status).json({ message: error.message });
+    //     } else {
+    //         res.status(400).json({ message: 'Authentication failed', error: error.message });
+    //     }
+    // }
 };
 
 export default authMiddleware;

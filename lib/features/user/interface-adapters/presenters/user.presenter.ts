@@ -1,14 +1,23 @@
+import PresentedUser from "../../domain/interfaces/presented-user.interface";
 import User from "../../domain/interfaces/user.interface";
 
 
 const userPresenter = {
-    presentUser: (user: User): User => {
-      // Create a copy of the user object to avoid mutating the original
-      const presentedUser = { ...user };
-      // Remove sensitive information
-      delete presentedUser.password;
-      return presentedUser;
-    }
-  };
+  presentUser: (user: User): PresentedUser => {
+    // Map the Mongoose document to the User interface
+    const presentedUser: PresentedUser = {
+      id: user._id.toString(), // Convert Mongoose ObjectId to string
+      name: user.name,
+      surname: user.surname,
+      nickname: user.nickname,
+      email: user.email,
+      phone: user.phone,
+      isAdmin: user.isAdmin,
+      teamId: user.teamId
+    };
 
-  export default userPresenter;
+    return presentedUser;
+  }
+};
+
+export default userPresenter;

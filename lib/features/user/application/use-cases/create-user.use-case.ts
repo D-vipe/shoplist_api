@@ -19,6 +19,11 @@ class CreateUserUseCase {
       userData.password = await bcrypt.hash(userData.password, 10);
     }
 
+    // Additionally clear provided phone (remove all [+,(,),-] symbols and odd spaces)
+    if (userData.phone) {
+      userData.phone = userData.phone.replace(/[+\-()\s]/g, '');
+    }
+
     // Create the user
     const newUser = await this.userRepository.createUser(userData);
 

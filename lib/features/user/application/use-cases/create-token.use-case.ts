@@ -1,16 +1,31 @@
+import PresentedUser from "../../domain/interfaces/presented-user.interface";
 import TokenData from "../../domain/interfaces/token.interface";
-import DataStoredInToken from "../../domain/interfaces/tokenId.interface";
 import User from "../../domain/interfaces/user.interface";
 import jwt from 'jsonwebtoken';
+import userPresenter from "../../interface-adapters/presenters/user.presenter";
+import DataStoredInToken from "../../domain/interfaces/tokenId.interface";
 
 const createTokenUseCase = {
     execute: (user: User): TokenData => {
         const expiresIn = 60 * 60 * 12; // 12 hours
+        const refreshExpiresIn = 60 * 60 * 24 * 7; // 7 days
         const secret = process.env.JWT_SECRET;
-        const dataStoredInToken: DataStoredInToken = {
-          _id: user._id,
+        const refreshSecret = process.env.JWT_REFRESH_SECRET;
+
+        const presentedUser: PresentedUser = userPresenter.presentUser(user);
+
+        const dataStoredInToken: PresentedUser = {
+          ...presentedUser
         };
-        return new TokenData(jwt.sign(dataStoredInToken, secret, { expiresIn }), expiresIn);
+
+        const dataStoredInRefresh: DataStoredInToken = {
+          id: presentedUser.id
+        };
+
+        const accessToken = jwt.sign(dataStoredInToken, secret, { expiresIn: expiresIn },);
+        const refreshToken = jwt.sign(dataStoredInRefresh, refreshSecret, { expiresIn: refreshExpiresIn });
+
+        return new TokenData(accessToken, refreshToken);
     }
   };
 

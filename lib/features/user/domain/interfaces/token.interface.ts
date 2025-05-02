@@ -1,10 +1,10 @@
 class TokenData {
   token: string;
-  expiresIn: number;
+  refresh: string;
 
-  constructor(token: string, expiresIn: number) {
+  constructor(token: string, refresh: string) {
     this.token = token;
-    this.expiresIn = expiresIn;
+    this.refresh = refresh;
   }
 }
 

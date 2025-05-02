@@ -12,6 +12,7 @@ import TokenData from '../../domain/interfaces/token.interface';
 import createTokenUseCase from '../../application/use-cases/create-token.use-case';
 import authMiddleware from 'lib/common/middleware/auth.middleware';
 import AppResponse from 'lib/common/interfaces/app-response.interface';
+import PresentedUser from '../../domain/interfaces/presented-user.interface';
 
 class UserController {
   public router = express.Router();
@@ -85,7 +86,7 @@ class UserController {
 
       const response: AppResponse = {
         success: true,
-        data: { ...tokenData },
+        data: { ...tokenData, },
         error: null
       };
 
