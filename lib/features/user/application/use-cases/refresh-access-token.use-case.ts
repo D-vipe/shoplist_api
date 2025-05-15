@@ -46,12 +46,10 @@ class RefreshAccessTokenUseCase {
             throw new WrongAuthTokenError();
         }
 
-        const receivedTokenHash = await this.tokenService.hashToken(token);
-
-        if (receivedTokenHash != existingToken.token) {
+        const isTokenValid = await this.tokenService.compareToken(token, existingToken.token);
+        if (!isTokenValid) {
             throw new WrongAuthTokenError();
         }
-
 
         const newExpiryDate: Date = new Date();
         const currentTime = Math.floor(newExpiryDate.getTime() / 1000); // Current time in seconds

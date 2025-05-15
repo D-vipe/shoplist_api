@@ -50,6 +50,10 @@ class TokenService {
             throw new TokenServiceError('token.jwtVerificationError');
         }
     }
+
+    async compareToken(token: string, hashedToken: string): Promise<boolean> {
+        return await bcrypt.compare(token, hashedToken);
+    }
 }
 
 export default TokenService;
