@@ -2,14 +2,13 @@ import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import AuthenticationTokenMissingException from '../exceptions/authentication-token-missing.exception';
 import userModel from 'lib/features/user/infrastructure/models/user.model';
-import RequestWithUser from '../interfaces/request-with-user.interface';
-import ExpiredTokenException from '../exceptions/expired-token.exception';
 import WrongCredentialsException from '../exceptions/wrong-credentials.exception';
 import HttpException from '../exceptions/http-exception';
-import DataStoredInToken from 'lib/features/user/domain/interfaces/tokenId.interface';
+import DataStoredInToken from 'lib/features/user/domain/interfaces/token/tokenId.interface';
+import UserRequestParams from '../interfaces/user-request-params.interface';
 // Adjust the path to your User model
 
-const authMiddleware = async (req: RequestWithUser, res: Response, next: NextFunction) => {
+const authMiddleware = async (req: UserRequestParams, res: Response, next: NextFunction) => {
 
     let errorMessage: string = '';
         // Get the token from the Authorization header

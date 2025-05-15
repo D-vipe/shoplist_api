@@ -1,5 +1,5 @@
-import PresentedUser from "../../domain/interfaces/presented-user.interface";
-import User from "../../domain/interfaces/user.interface";
+import PresentedUser from "../../domain/interfaces/user/presented-user.interface";
+import User from "../../domain/interfaces/user/user.interface";
 
 
 const userPresenter = {

@@ -1,5 +1,5 @@
 import * as mongoose from 'mongoose';
-import User from '../../domain/interfaces/user.interface';
+import User from '../../domain/interfaces/user/user.interface';
 
 const userSchema = new mongoose.Schema({
     name: {type: String, default: ''},
@@ -10,9 +10,7 @@ const userSchema = new mongoose.Schema({
     password: {type: String, required: true},
     isAdmin: {type: Boolean, default: false},
     teamId: {type: String, default: ''},
-    createdAt: {type: Date, default: Date.now},
-    updatedAt: {type: Date, default: Date.now},
-});
+}, { timestamps: true });
 
 const userModel = mongoose.model<User & mongoose.Document>('User', userSchema);
 

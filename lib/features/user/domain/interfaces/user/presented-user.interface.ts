@@ -3,8 +3,8 @@ interface PresentedUser {
     name: string;
     surname: string;
     nickname: string;
-    email: string | null;
-    phone: string;
+    email?: string;
+    phone?: string;
     isAdmin: boolean;
     teamId: string;
   }

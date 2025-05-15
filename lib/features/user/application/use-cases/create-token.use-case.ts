@@ -1,9 +1,11 @@
-import PresentedUser from "../../domain/interfaces/presented-user.interface";
-import TokenData from "../../domain/interfaces/token.interface";
-import User from "../../domain/interfaces/user.interface";
+
 import jwt from 'jsonwebtoken';
 import userPresenter from "../../interface-adapters/presenters/user.presenter";
-import DataStoredInToken from "../../domain/interfaces/tokenId.interface";
+import DataStoredInToken from "../../domain/interfaces/token/tokenId.interface";
+import User from '../../domain/interfaces/user/user.interface';
+import TokenData from '../../domain/interfaces/token/token.interface';
+import PresentedUser from '../../domain/interfaces/user/presented-user.interface';
+
 
 const createTokenUseCase = {
     execute: (user: User): TokenData => {

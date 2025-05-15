@@ -1,9 +1,11 @@
+import { inject, injectable } from "inversify";
 import NotFoundException from "../../../../common/exceptions/not-found.exception";
-import User from "../../domain/interfaces/user.interface";
+import User from "../../domain/interfaces/user/user.interface";
 import UserRepository from "../../infrastructure/repositories/user.repository";
 
+@injectable()
 class GetUserByIdUseCase {
-    constructor(private userRepository: UserRepository) {}
+    constructor(@inject(UserRepository) private userRepository: UserRepository) {}
 
     async execute(userId: string): Promise<User> {
 
@@ -16,4 +18,4 @@ class GetUserByIdUseCase {
     }
   }
 
-  export default new GetUserByIdUseCase(new UserRepository());
+  export default GetUserByIdUseCase;

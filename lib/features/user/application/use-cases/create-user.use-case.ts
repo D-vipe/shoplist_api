@@ -1,11 +1,12 @@
 import bcrypt from 'bcrypt';
 import UserRepository from '../../infrastructure/repositories/user.repository';
-import User from '../../domain/interfaces/user.interface';
+import User from '../../domain/interfaces/user/user.interface';
 import HttpException from '../../../../common/exceptions/http-exception';
+import { inject, injectable } from 'inversify';
 
-
+@injectable()
 class CreateUserUseCase {
-  constructor(private userRepository: UserRepository) {}
+  constructor(@inject(UserRepository) private userRepository: UserRepository) {}
 
   async execute(userData: User): Promise<User> {
     // Check if the user already exists
@@ -31,4 +32,4 @@ class CreateUserUseCase {
   }
 }
 
-export default new CreateUserUseCase(new UserRepository());
+export default CreateUserUseCase;
