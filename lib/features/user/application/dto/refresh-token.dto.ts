@@ -1,5 +1,9 @@
-interface RefreshTokenDto extends Request {
-    token?: string;
-  }
+import { IsString, IsNotEmpty } from 'class-validator';
 
-  export default RefreshTokenDto;
+class RefreshTokenDto {
+  @IsString({ message: 'Token must be a string' })
+  @IsNotEmpty({ message: 'Token should not be empty' })
+  token: string;
+}
+
+export default RefreshTokenDto;

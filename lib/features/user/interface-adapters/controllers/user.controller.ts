@@ -6,7 +6,6 @@ import validationMiddleware from '../../../../common/middleware/validation.middl
 import UserDto from '../../application/dto/user.dto';
 import userPresenter from '../presenters/user.presenter';
 import UserLoginDto from '../../application/dto/user-login.dto';
-import createTokenUseCase from '../../application/use-cases/create-token.use-case';
 import authMiddleware from 'lib/common/middleware/auth.middleware';
 import AppResponse from 'lib/common/interfaces/app-response.interface';
 import User from '../../domain/interfaces/user/user.interface';
@@ -14,19 +13,22 @@ import TokenData from '../../domain/interfaces/token/token.interface';
 import RefreshTokenDto from '../../application/dto/refresh-token.dto';
 import SaveRefreshTokenUseCase from '../../application/use-cases/save-refresh-token.use-case';
 import LoginUserUseCase from '../../application/use-cases/login.use-case';
+import TokenService from '../../application/services/token.service';
 
 class UserController {
   public router = express.Router();
   private _baseUrl: string = '/users';
 
   constructor(
-    private readonly loginUerUseCase: LoginUserUseCase,
+    private readonly loginUserUseCase: LoginUserUseCase,
     private readonly saveRefreshTokenUseCase: SaveRefreshTokenUseCase,
     private readonly createUserUseCase: CreateUserUseCase,
-    private readonly getUserByIdUseCase: GetUserByIdUseCase
+    private readonly getUserByIdUseCase: GetUserByIdUseCase,
+    private readonly tokenService: TokenService,
   ) {
     this.intializeRoutes();
   }
+
 
   public intializeRoutes() {
     this.router.post(`${this._baseUrl}/login`, validationMiddleware(UserLoginDto), this.login);
@@ -34,11 +36,16 @@ class UserController {
     this.router.put(`${this._baseUrl}`, validationMiddleware(UserDto), this.createUser);
 
     // TODO! add middleware
-    this.router.post(`${this._baseUrl}/refresh_token`, this.refreshToken);
+    this.router.post(`${this._baseUrl}/refresh_token`, validationMiddleware(RefreshTokenDto), this.refreshToken);
 
     // this.router.post(`${this.path}/logout`, this.loggingOut);
     this.router.get(`${this._baseUrl}/getById`, authMiddleware, this.getById);
     // this.router.patch(`${this.path}/update`, authMiddleware, validationMiddleware(UserDto, true), this.update);
+
+    this.login.bind(this);
+    this.createUser.bind(this);
+    this.refreshToken.bind(this);
+    this.getById.bind(this);
   }
 
 
@@ -91,16 +98,16 @@ class UserController {
 
     try {
       const logInData: UserLoginDto = req.body;
-      const user: User = await this.loginUerUseCase.execute(logInData);
+      const user: User = await this.loginUserUseCase.execute(logInData);
 
-      const tokenData: TokenData = createTokenUseCase.execute(user);
+      const tokenData: TokenData = this.tokenService.createTokens(userPresenter.presentUser(user));
 
       // Save generated refresh token
       await this.saveRefreshTokenUseCase.execute(tokenData.refresh);
 
       const response: AppResponse = {
         success: true,
-        data: { ...tokenData, 'user': userPresenter.presentUser(user) },
+        data: { ...tokenData },
         error: null
       };
 
@@ -112,21 +119,7 @@ class UserController {
 
   private async refreshToken(req: Request, res: Response, next: express.NextFunction): Promise<void> {
     try {
-      const data: RefreshTokenDto = req.body;
-
-      if (!data.token) {
-        const response: AppResponse = {
-          success: false,
-          data: {},
-          error: 'Не удалось обновить токен'
-        };
-
-        res.status(400).json(response);
-      } else {
-        // Use the injected use case
-        // await this.saveRefreshTokenUseCase.execute(data.token);
-        // ...existing code...
-      }
+      // const refreshResult: TokenData = await this.re
     } catch (error) {
       console.error(`${error.code} ?? 400`);
 

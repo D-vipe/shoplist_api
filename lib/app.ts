@@ -9,7 +9,6 @@ import errorMiddleware from './common/middleware/error.middleware';
 import MongooseConnection from './common/database/mongoose-connection';
 import SocketService from './frameworks-drivers/socket-service';
 import { DefaultEventsMap, Server } from 'socket.io';
-import updateUserSchema from './migrations/update-user-schema';
 
 
 class App {
@@ -79,7 +78,7 @@ class App {
     const mongooseConnection = MongooseConnection.getInstance();
     mongooseConnection.connect();
 
-    updateUserSchema();
+    // updateUserSchema();
   }
 
   private initializeErrorHandling() {

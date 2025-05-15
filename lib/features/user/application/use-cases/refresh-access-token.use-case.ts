@@ -1,9 +1,11 @@
 import { inject, injectable } from "inversify";
 import TokenRepository from "../../infrastructure/repositories/token.repository";
 import TokenService from "../services/token.service";
+import { JwtPayload } from "jsonwebtoken";
+import RefreshToken from "../../domain/interfaces/token/refresh-token.interface";
 
 @injectable()
-class SaveRefreshTokenUseCase {
+class RefreshAccessTokenUseCase {
     constructor(
         @inject(TokenRepository) private tokenRepository: TokenRepository,
         @inject(TokenService) private tokenService: TokenService
@@ -11,8 +13,16 @@ class SaveRefreshTokenUseCase {
 
     async execute(token: string): Promise<boolean> {
         // Use TokenService for shared logic
-        const hashedToken = await this.tokenService.hashToken(token);
-        const decoded = this.tokenService.verifyToken(token);
+        const hashedToken: string = await this.tokenService.hashToken(token);
+        const decoded: JwtPayload = this.tokenService.verifyToken(token);
+
+        // !WIP
+
+        if (decoded.id) {
+            const existingToken: RefreshToken | null = await this.tokenRepository.findToken(decoded.id);
+        }
+
+
 
         if (decoded.exp) {
             const expiryDate: Date = new Date(decoded.exp * 1000);
@@ -25,4 +35,4 @@ class SaveRefreshTokenUseCase {
     }
 }
 
-export default SaveRefreshTokenUseCase;
+export default RefreshAccessTokenUseCase;

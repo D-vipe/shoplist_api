@@ -6,11 +6,14 @@ import UserController from './features/user/interface-adapters/controllers/user.
 import CreateUserUseCase from './features/user/application/use-cases/create-user.use-case';
 import GetUserByIdUseCase from './features/user/application/use-cases/get-user.use-case';
 import LoginUserUseCase from './features/user/application/use-cases/login.use-case';
+import TokenService from './features/user/application/services/token.service';
+import UserRepository from './features/user/infrastructure/repositories/user.repository';
 
 const container = new Container();
 
 // Bind classes to the container
 container.bind(TokenRepository).toSelf();
+container.bind(UserRepository).toSelf();
 
 // Bind use cases
 container.bind(LoginUserUseCase).toSelf();
@@ -18,13 +21,17 @@ container.bind(CreateUserUseCase).toSelf();
 container.bind(GetUserByIdUseCase).toSelf();
 container.bind(SaveRefreshTokenUseCase).toSelf();
 
+// Bind services to the container
+container.bind(TokenService).toSelf();
+
 // Bind UserController with dependencies
 container.bind(UserController).toDynamicValue(() => {
   return new UserController(
     container.get(LoginUserUseCase),
     container.get(SaveRefreshTokenUseCase),
     container.get(CreateUserUseCase),
-    container.get(GetUserByIdUseCase)
+    container.get(GetUserByIdUseCase),
+    container.get(TokenService),
   );
 });
 

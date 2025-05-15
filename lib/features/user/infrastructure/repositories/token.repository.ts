@@ -6,12 +6,8 @@ import { injectable } from 'inversify';
 @injectable()
 class TokenRepository implements ITokenRepository {
 
-    private async findToken(userId: string): Promise<RefreshToken | null> {
+    async findToken(userId: string): Promise<RefreshToken | null> {
         return await refreshTokenModel.findOne({ userId }).exec();
-    }
-
-    async findTokenByUser(userId: string): Promise<RefreshToken | null> {
-        return await this.findToken(userId);
     }
 
     async saveToken({ userId, token, expiryDate }: { userId: string; token: string; expiryDate: Date }): Promise<boolean> {
