@@ -14,6 +14,8 @@ import RefreshTokenDto from '../../application/dto/refresh-token.dto';
 import SaveRefreshTokenUseCase from '../../application/use-cases/save-refresh-token.use-case';
 import LoginUserUseCase from '../../application/use-cases/login.use-case';
 import TokenService from '../../application/services/token.service';
+import { NotFoundError } from 'routing-controllers';
+import NotFoundException from 'lib/common/exceptions/not-found.exception';
 
 class UserController {
   public router = express.Router();
@@ -47,7 +49,7 @@ class UserController {
   }
 
 
-  async createUser(req: Request, res: Response): Promise<void> {
+  async createUser(req: Request, res: Response, next: express.NextFunction): Promise<void> {
     try {
       const user: User = await this.createUserUseCase.execute(req.body);
 
@@ -60,13 +62,11 @@ class UserController {
       res.status(201).json(response);
     } catch (error) {
 
-      const response: AppResponse = { success: false, data: null, error: error.message };
-
-      res.status(error.code ?? 400).json(response);
+      next(error);
     }
   }
 
-  async getById(req: Request, res: Response): Promise<void> {
+  async getById(req: Request, res: Response, next: express.NextFunction): Promise<void> {
     try {
       const user: User = await this.getUserByIdUseCase.execute(req.params.id);
 
@@ -80,21 +80,15 @@ class UserController {
 
 
     } catch (error) {
-      console.error(`${error.code} ?? 400`);
-
-      const response: AppResponse = {
-        success: false,
-        data: null,
-        error: error.message
-      };
-
-      res.status(error.code ?? 400).json(response);
+      next(error);
     }
   }
 
   private async login(req: Request, res: Response, next: express.NextFunction): Promise<void> {
 
     try {
+      throw new NotFoundException;
+
       const logInData: UserLoginDto = req.body;
       const user: User = await this.loginUserUseCase.execute(logInData);
 
@@ -119,15 +113,7 @@ class UserController {
     try {
       // const refreshResult: TokenData = await this.re
     } catch (error) {
-      console.error(`${error.code} ?? 400`);
-
-      const response: AppResponse = {
-        success: false,
-        data: null,
-        error: error.message
-      };
-
-      res.status(error.code ?? 400).json(response);
+      next(error);
     }
   }
 

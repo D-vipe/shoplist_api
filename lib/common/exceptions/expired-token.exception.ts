@@ -3,7 +3,7 @@ import HttpException from "./http-exception";
 
 class ExpiredTokenException extends HttpException {
   constructor() {
-    super(401, 'Время действия токена истекло');
+    super(401, 'token.expiredError');
   }
 }
 

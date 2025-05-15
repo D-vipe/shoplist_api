@@ -1,0 +1,25 @@
+{
+    "general": {
+        "notFoundError": "Failed to find what you were looking for",
+        "wrongAuthError": "Wrong authorization token",
+        "wrongCredentialsError": "Введены неверныe параметры"
+      },
+    "user": {
+        "notFound": "User not found.",
+        "invalidCredentials": "Invalid credentials.",
+        "invalidTokenSecrets": "Failed to retrieve necessary credentals for token creation",
+        "tokenVerification": "Failed to retrieve necessary credentials for token verification",
+        "noTokenExpiryDate": "Failed to retrieve token expiry date"
+    },
+    "token": {
+        "saveError": "Failed to save token",
+        "notFoundError": "Failed to find necessary token",
+        "alreadyRevokedError": "Token has already been revoked",
+        "revokationFailedError": "Failed to revoke token",
+        "invalidSecretsError": "Failed to retrieve necessary credentials for token creation",
+        "verificationFailedError": "Failed to retrieve necessary credentials for token verification",
+        "notFoundExpiryDateError": "Failed to retrieve expiry date",
+        "expiredError": "Token has expired",
+        "authTokenError": "Failed to find auth token. Login again"
+      }
+}

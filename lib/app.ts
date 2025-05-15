@@ -9,6 +9,8 @@ import errorMiddleware from './common/middleware/error.middleware';
 import MongooseConnection from './common/database/mongoose-connection';
 import SocketService from './frameworks-drivers/socket-service';
 import { DefaultEventsMap, Server } from 'socket.io';
+import i18next from './common/config/i18n';
+import i18nextMiddleware from 'i18next-http-middleware';
 
 
 class App {
@@ -30,6 +32,8 @@ class App {
   }
 
   private initializeMiddlewares() {
+    // Add i18next middleware
+    this.app.use(i18nextMiddleware.handle(i18next));
     this.app.use(bodyParser.json());
     this.app.use(cookieParser());
   }

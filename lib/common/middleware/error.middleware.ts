@@ -6,7 +6,8 @@ import logger from 'lib/logger';
 
 function errorMiddleware(error: HttpException, _request: Request, res: Response, _next: NextFunction) {
   const status = error.status || 500;
-  const message = error.message || 'Что-то пошло не так';
+
+  const message = _request.t(error.message) || 'Что-то пошло не так';
 
   const response: AppResponse = {
     success: false,

@@ -1,3 +1,4 @@
+import logger from "lib/logger";
 import RefreshToken from "../../domain/interfaces/token/refresh-token.interface";
 import { ITokenRepository } from "../../domain/irepositories/token.repository.interface";
 import refreshTokenModel from '../models/refresh-token.model';
@@ -21,7 +22,8 @@ class TokenRepository implements ITokenRepository {
             }
             return true;
         } catch (err) {
-            throw new Error(err.message ?? 'Не удалось сохранить токен');
+            logger.error(err.message ?? 'Не удалось сохранить токен');
+            throw new Error('token.saveError');
         }
     }
 

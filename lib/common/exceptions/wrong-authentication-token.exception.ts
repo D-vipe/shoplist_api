@@ -2,7 +2,7 @@ import HttpException from "./http-exception";
 
 class WrongCredentialsException extends HttpException {
   constructor() {
-    super(401, 'Использован неверный токен авторизации');
+    super(401, 'general.wrongAuthError');
   }
 }
 
