@@ -26,6 +26,12 @@ class UserController {
     private readonly getUserByIdUseCase: GetUserByIdUseCase,
     private readonly tokenService: TokenService,
   ) {
+    // Bind methods to the class instance
+    this.login = this.login.bind(this);
+    this.createUser = this.createUser.bind(this);
+    this.refreshToken = this.refreshToken.bind(this);
+    this.getById = this.getById.bind(this);
+
     this.intializeRoutes();
   }
 
@@ -35,17 +41,9 @@ class UserController {
 
     this.router.put(`${this._baseUrl}`, validationMiddleware(UserDto), this.createUser);
 
-    // TODO! add middleware
     this.router.post(`${this._baseUrl}/refresh_token`, validationMiddleware(RefreshTokenDto), this.refreshToken);
 
-    // this.router.post(`${this.path}/logout`, this.loggingOut);
     this.router.get(`${this._baseUrl}/getById`, authMiddleware, this.getById);
-    // this.router.patch(`${this.path}/update`, authMiddleware, validationMiddleware(UserDto, true), this.update);
-
-    this.login.bind(this);
-    this.createUser.bind(this);
-    this.refreshToken.bind(this);
-    this.getById.bind(this);
   }
 
 
