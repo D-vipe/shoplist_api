@@ -1,5 +1,5 @@
-import Game from "lib/features/game/core/entities/game.class";
-import Player from "lib/features/game/core/entities/player.class";
+import Game from 'lib/features/game/core/entities/game.class';
+import Player from 'lib/features/game/core/entities/player.class';
 
 abstract class GameGateway {
     async getGame(gameId: string): Promise<Game> {

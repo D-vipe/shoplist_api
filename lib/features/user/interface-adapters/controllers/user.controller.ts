@@ -14,8 +14,17 @@ import RefreshTokenDto from '../../application/dto/refresh-token.dto';
 import SaveRefreshTokenUseCase from '../../application/use-cases/save-refresh-token.use-case';
 import LoginUserUseCase from '../../application/use-cases/login.use-case';
 import TokenService from '../../application/services/token.service';
-import { NotFoundError } from 'routing-controllers';
+import RefreshAccessTokenUseCase from '../../application/use-cases/refresh-access-token.use-case';
+import { DuplicateUserEmailError, DuplicateUserPhoneError } from '../../domain/exceptions/duplicate-user.error';
+import HttpException from 'lib/common/exceptions/http-exception';
+import { UserNotFoundError } from '../../domain/exceptions/user-not-found.error';
 import NotFoundException from 'lib/common/exceptions/not-found.exception';
+import { LoginWrongCredentialsError } from '../../domain/exceptions/login-wrong-credentials.error';
+import WrongCredentialsException from 'lib/common/exceptions/wrong-credentials.exception';
+import { TokenServiceError } from '../../domain/exceptions/token-service.error';
+import { WrongAuthTokenError } from '../../domain/exceptions/wrong-auth-token.error';
+import AuthorizationException from 'lib/common/exceptions/authorization.exception';
+import { NotFoundTokenError } from '../../domain/exceptions/not-found-token.error';
 
 class UserController {
   public router = express.Router();
@@ -26,6 +35,7 @@ class UserController {
     private readonly saveRefreshTokenUseCase: SaveRefreshTokenUseCase,
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly getUserByIdUseCase: GetUserByIdUseCase,
+    private readonly refreshAccessTokenUseCase: RefreshAccessTokenUseCase,
     private readonly tokenService: TokenService,
   ) {
     // Bind methods to the class instance
@@ -60,10 +70,14 @@ class UserController {
       };
 
       res.status(201).json(response);
-    } catch (error) {
-
-      next(error);
+    } catch (err) {
+      if (err instanceof DuplicateUserPhoneError || err instanceof DuplicateUserEmailError) {
+        next(new HttpException(409, req.t(err.message)));
+      } else {
+        next(err);
+      }
     }
+
   }
 
   async getById(req: Request, res: Response, next: express.NextFunction): Promise<void> {
@@ -77,22 +91,21 @@ class UserController {
       };
 
       res.status(200).json(response);
-
-
-    } catch (error) {
-      next(error);
+    } catch (err) {
+      if (err instanceof UserNotFoundError) {
+        next(new HttpException(404, req.t(err.message)));
+      } else {
+        next(err);
+      }
     }
   }
 
   private async login(req: Request, res: Response, next: express.NextFunction): Promise<void> {
-
     try {
-      throw new NotFoundException;
-
       const logInData: UserLoginDto = req.body;
       const user: User = await this.loginUserUseCase.execute(logInData);
 
-      const tokenData: TokenData = this.tokenService.createTokens(userPresenter.presentUser(user));
+      const tokenData: TokenData = this.tokenService.createTokens(user);
 
       // Save generated refresh token
       await this.saveRefreshTokenUseCase.execute(tokenData.refresh);
@@ -104,16 +117,41 @@ class UserController {
       };
 
       res.status(200).json(response);
-    } catch (error) {
-      next(error);
+    } catch (err) {
+      if (err instanceof UserNotFoundError) {
+        next(new NotFoundException(err.message));
+      } else if (err instanceof LoginWrongCredentialsError) {
+        next(new WrongCredentialsException(err.message));
+      } else if (err instanceof TokenServiceError) {
+        next(new HttpException(400, err.message));
+      } else {
+        next(err);
+      }
     }
   }
 
   private async refreshToken(req: Request, res: Response, next: express.NextFunction): Promise<void> {
     try {
-      // const refreshResult: TokenData = await this.re
-    } catch (error) {
-      next(error);
+      const data: RefreshTokenDto = req.body;
+      const result: TokenData = await this.refreshAccessTokenUseCase.execute(data.token);
+
+      const response: AppResponse = {
+        success: true,
+        data: { ...result },
+        error: null
+      };
+
+      res.status(200).json(response);
+    } catch (err) {
+      if (err instanceof WrongAuthTokenError) {
+        next(new AuthorizationException());
+      } else if (err instanceof WrongAuthTokenError || err instanceof NotFoundTokenError) {
+        next(new NotFoundException(err.message));
+      } else if (err instanceof TokenServiceError) {
+        next(new HttpException(400, err.message));
+      } else {
+        next(err);
+      }
     }
   }
 

@@ -1,11 +1,11 @@
 import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import AuthenticationTokenMissingException from '../exceptions/authentication-token-missing.exception';
 import userModel from 'lib/features/user/infrastructure/models/user.model';
 import WrongCredentialsException from '../exceptions/wrong-credentials.exception';
 import HttpException from '../exceptions/http-exception';
 import DataStoredInToken from 'lib/features/user/domain/interfaces/token/tokenId.interface';
 import UserRequestParams from '../interfaces/user-request-params.interface';
+import AuthorizationException from '../exceptions/authorization.exception';
 // Adjust the path to your User model
 
 const authMiddleware = async (req: UserRequestParams, res: Response, next: NextFunction) => {
@@ -15,7 +15,7 @@ const authMiddleware = async (req: UserRequestParams, res: Response, next: NextF
         const authHeader = req.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
             // logger.error('AuthMiddleware error: Missing token');
-            return AuthenticationTokenMissingException;
+            throw new AuthorizationException();
         }
 
         const token = authHeader.split(' ')[1];
@@ -51,17 +51,6 @@ const authMiddleware = async (req: UserRequestParams, res: Response, next: NextF
 
         // Proceed to the next middleware or route handler
         next();
-    // try {
-
-    // } catch (error) {
-    //     // console.error('Error in gameAuthMiddleware:', error);
-
-    //     if (error instanceof HttpException) {
-    //         res.status(error.status).json({ message: error.message });
-    //     } else {
-    //         res.status(400).json({ message: 'Authentication failed', error: error.message });
-    //     }
-    // }
 };
 
 export default authMiddleware;

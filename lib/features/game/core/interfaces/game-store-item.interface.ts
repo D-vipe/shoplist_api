@@ -1,4 +1,4 @@
-import Game from "../entities/game.class";
+import Game from '../entities/game.class';
 
 
 interface GameStoreItem {

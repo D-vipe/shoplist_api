@@ -6,10 +6,9 @@
       },
     "user": {
         "notFound": "User not found.",
-        "invalidCredentials": "Invalid credentials.",
-        "invalidTokenSecrets": "Failed to retrieve necessary credentals for token creation",
-        "tokenVerification": "Failed to retrieve necessary credentials for token verification",
-        "noTokenExpiryDate": "Failed to retrieve token expiry date"
+        "invalidCredentialsError": "Invalid credentials.",
+        "duplicatePhoneError": "User with provided phone number already exists",
+        "duplicateEmailError": "User with provided email already exists"
     },
     "token": {
         "saveError": "Failed to save token",
@@ -19,7 +18,9 @@
         "invalidSecretsError": "Failed to retrieve necessary credentials for token creation",
         "verificationFailedError": "Failed to retrieve necessary credentials for token verification",
         "notFoundExpiryDateError": "Failed to retrieve expiry date",
+        "missingParams": "Missing required token params",
         "expiredError": "Token has expired",
-        "authTokenError": "Failed to find auth token. Login again"
+        "authTokenError": "Failed to find auth token. Login again",
+        "jwtVerificationError": "Token verification failed"
       }
 }

@@ -1,6 +1,6 @@
 import express from 'express';
 import http from 'http';
-import path from "path";
+import path from 'path';
 import * as bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import swaggerJSDoc from 'swagger-jsdoc';

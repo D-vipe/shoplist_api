@@ -1,5 +1,6 @@
 import { IsString, IsPhoneNumber, IsNotEmpty } from 'class-validator';
 
+// !TODO convert validation messages to i18n compatible
 class UserLoginDto {
   @IsPhoneNumber('RU', {
     message: 'Неверный формат телефона'

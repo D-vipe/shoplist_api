@@ -1,5 +1,5 @@
-import Game from "../core/entities/game.class";
-import Fractions from "../core/enums/fractions";
+import Game from '../core/entities/game.class';
+import Fractions from '../core/enums/fractions';
 
 function checkGameOverUseCase({ game } : {game: Game}): Fractions | null {
     const mafiaAlive: number = game.players.filter(player => player.isMafia && player.alive).length;

@@ -1,4 +1,4 @@
-import InMemoryGameStore from "./game-store.gateway";
+import InMemoryGameStore from './game-store.gateway';
 
 const gameStore = new InMemoryGameStore();
 

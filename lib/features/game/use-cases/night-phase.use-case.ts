@@ -1,7 +1,7 @@
-import Game from "../core/entities/game.class";
-import Player from "../core/entities/player.class";
-import Phases from "../core/enums/phases";
-import Roles from "../core/enums/roles";
+import Game from '../core/entities/game.class';
+import Player from '../core/entities/player.class';
+import Phases from '../core/enums/phases';
+import Roles from '../core/enums/roles';
 
 const nightPhaseUseCase = ({ game, mafiaTarget, sheriffTarget, doctorTarget, mistressTarget, }: { game: Game, mafiaTarget?: string, sheriffTarget?: string, doctorTarget?: string, mistressTarget?: string, }): Game => {
 

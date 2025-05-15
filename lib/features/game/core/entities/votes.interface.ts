@@ -1,4 +1,4 @@
-import Player from "./player.class";
+import Player from './player.class';
 
 interface Vote {
     player: Player, // [Player._id] who voted

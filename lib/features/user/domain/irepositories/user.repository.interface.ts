@@ -1,4 +1,4 @@
-import User from "../interfaces/user/user.interface";
+import User from '../interfaces/user/user.interface';
 
 export interface UserRepositoryInterface {
     findUserById(id: string): Promise<User | null>;

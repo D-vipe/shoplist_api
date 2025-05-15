@@ -1,8 +1,8 @@
-import HttpException from "./http-exception";
+import HttpException from './http-exception';
 
 class WrongCredentialsException extends HttpException {
-  constructor() {
-    super(400, 'general.wrongCredentialsError');
+  constructor(message?: string) {
+    super(400, (message != null && message.length > 0) ? message : 'general.wrongCredentialsError');
   }
 }
 

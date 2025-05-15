@@ -1,4 +1,4 @@
-import Role from "../enums/roles";
+import Role from '../enums/roles';
 
 // interface _Player {
 //   _id: string,

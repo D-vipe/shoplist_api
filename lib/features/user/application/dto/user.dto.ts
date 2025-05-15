@@ -1,5 +1,6 @@
 import { IsOptional, IsString } from 'class-validator';
 
+// !TODO convert validation messages to i18n compatible
 class UserDto {
   @IsOptional()
   public name?: string | null;

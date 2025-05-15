@@ -1,4 +1,4 @@
-import RefreshToken from "../interfaces/token/refresh-token.interface";
+import RefreshToken from '../interfaces/token/refresh-token.interface';
 
 export interface ITokenRepository {
     findToken(userId: string): Promise<RefreshToken | null>;

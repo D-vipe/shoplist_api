@@ -1,5 +1,5 @@
-import Roles from "../core/enums/roles";
-import Player from "../core/entities/player.class";
+import Roles from '../core/enums/roles';
+import Player from '../core/entities/player.class';
 
 
 const assignRolesUseCase = ({ players, roles }: { players: Array<Player>, roles: Array<Roles> }): Array<Player> => {

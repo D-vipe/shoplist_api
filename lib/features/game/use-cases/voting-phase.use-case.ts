@@ -1,7 +1,7 @@
-import Game from "../core/entities/game.class";
-import Player from "../core/entities/player.class";
-import Vote from "../core/entities/votes.interface";
-import Phases from "../core/enums/phases";
+import Game from '../core/entities/game.class';
+import Player from '../core/entities/player.class';
+import Vote from '../core/entities/votes.interface';
+import Phases from '../core/enums/phases';
 
 function votingPhaseUseCase({ game }: { game: Game }): Game {
   const voteCounts = {};

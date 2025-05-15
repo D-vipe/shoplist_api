@@ -1,7 +1,7 @@
-import Phases from "../enums/phases";
-import Roles from "../enums/roles";
-import Player from "./player.class";
-import Vote from "./votes.interface";
+import Phases from '../enums/phases';
+import Roles from '../enums/roles';
+import Player from './player.class';
+import Vote from './votes.interface';
 
 class Game {
     readonly _id: string;

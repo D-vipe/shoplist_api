@@ -1,8 +1,8 @@
-import HttpException from "./http-exception";
+import HttpException from './http-exception';
 
 class NotFoundException extends HttpException {
-  constructor() {
-    super(404, 'general.notFoundError');
+  constructor(message?: string) {
+    super(404, message ?? 'general.notFoundError');
   }
 }
 

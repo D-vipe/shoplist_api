@@ -1,7 +1,7 @@
-import { inject, injectable } from "inversify";
-import NotFoundException from "../../../../common/exceptions/not-found.exception";
-import User from "../../domain/interfaces/user/user.interface";
-import UserRepository from "../../infrastructure/repositories/user.repository";
+import { inject, injectable } from 'inversify';
+import User from '../../domain/interfaces/user/user.interface';
+import UserRepository from '../../infrastructure/repositories/user.repository';
+import { UserNotFoundError } from '../../domain/exceptions/user-not-found.error';
 
 @injectable()
 class GetUserByIdUseCase {
@@ -11,7 +11,7 @@ class GetUserByIdUseCase {
 
       const user: User | null = await this.userRepository.findUserById(userId);
       if (user == null) {
-        throw new NotFoundException();
+        throw new UserNotFoundError();
       } else {
         return user;
       }

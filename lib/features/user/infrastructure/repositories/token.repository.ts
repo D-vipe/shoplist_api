@@ -1,6 +1,6 @@
-import logger from "lib/logger";
-import RefreshToken from "../../domain/interfaces/token/refresh-token.interface";
-import { ITokenRepository } from "../../domain/irepositories/token.repository.interface";
+import logger from 'lib/logger';
+import RefreshToken from '../../domain/interfaces/token/refresh-token.interface';
+import { ITokenRepository } from '../../domain/irepositories/token.repository.interface';
 import refreshTokenModel from '../models/refresh-token.model';
 import { injectable } from 'inversify';
 

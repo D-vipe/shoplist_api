@@ -1,8 +1,8 @@
 import bcrypt from 'bcrypt';
 import UserRepository from '../../infrastructure/repositories/user.repository';
 import User from '../../domain/interfaces/user/user.interface';
-import HttpException from '../../../../common/exceptions/http-exception';
 import { inject, injectable } from 'inversify';
+import { DuplicateUserPhoneError } from '../../domain/exceptions/duplicate-user.error';
 
 @injectable()
 class CreateUserUseCase {
@@ -12,8 +12,10 @@ class CreateUserUseCase {
     // Check if the user already exists
     const existingUser = await this.userRepository.findUserByPhone(userData.phone);
     if (existingUser) {
-      throw new HttpException(400, 'Пользователь с таким номером телефона уже существует');
+      throw new DuplicateUserPhoneError();
     }
+
+    // !TODO add email check as soon there will be login via email
 
     // Hash the password
     if (userData.password) {

@@ -1,7 +1,7 @@
-import Game from "lib/features/game/core/entities/game.class";
-import GameGateway from "./game.gateway";
-import Phases from "lib/features/game/core/enums/phases";
-import Player from "lib/features/game/core/entities/player.class";
+import Game from 'lib/features/game/core/entities/game.class';
+import GameGateway from './game.gateway';
+import Phases from 'lib/features/game/core/enums/phases';
+import Player from 'lib/features/game/core/entities/player.class';
 
 class InMemoryGameStore extends GameGateway {
     private games: Array<Game>;
