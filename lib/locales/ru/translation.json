@@ -5,7 +5,7 @@
     "wrongCredentialsError": "Введены неверныe параметры"
   },
   "user": {
-    "notFoundError": "Пользователь не найден",
+    "notFound": "Пользователь не найден",
     "invalidCredentialsError": "Невалидные данные запроса",
     "duplicatePhoneError": "Пользователь с таким номером телефона уже существует",
     "duplicateEmailError": "Пользователь с таким email уже существует"

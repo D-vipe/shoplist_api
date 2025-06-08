@@ -2,7 +2,7 @@
     "general": {
         "notFoundError": "Failed to find what you were looking for",
         "wrongAuthError": "Wrong authorization token",
-        "wrongCredentialsError": "Введены неверныe параметры"
+        "wrongCredentialsError": "Wrong params"
       },
     "user": {
         "notFound": "User not found.",

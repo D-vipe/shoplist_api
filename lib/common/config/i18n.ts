@@ -12,11 +12,11 @@ i18next
     backend: {
       loadPath: path.join(__dirname, '../../locales/{{lng}}/translation.json'),
     },
-    detection: {
-      order: ['header', 'querystring',], // Detect language from query param or headers
-      lookupQuerystring: 'lang',
-      lookupHeader: 'accept-language', // Query parameter to detect language
-    },
+    // detection: {
+      // order: ['header'], // Detect language from query param or headers
+      // lookupQuerystring: 'lang',
+      // lookupHeader: 'Accept-Language',
+    // },
   });
 
 export default i18next;
